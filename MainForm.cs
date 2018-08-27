@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using HotKeys;
+using Hooks;
+
 
 
 namespace KeyboardLock
@@ -8,11 +10,15 @@ namespace KeyboardLock
     public partial class MainForm : Form
     {
         private GlobalHotKey ghk;
+        private Keylocks kl;
 
         public MainForm()
         {
             InitializeComponent();
             ghk = new GlobalHotKey(Constants.SHIFT, Keys.L, this);
+            kl = new Keylocks();
+            kl.SetHook();
+
             var handler = new EventHandler(OnClick);
             this.Click += handler;
             label1.Click += handler;
@@ -42,6 +48,7 @@ namespace KeyboardLock
 
         private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
         {
+            kl.UnHook();
             if (!ghk.UnRegister())
                 MessageBox.Show("Hotkey Failed to Unregister");
         }

@@ -2,14 +2,10 @@
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace KeyboardLock
+namespace Hooks
 {
-    public partial class Keylocks : Form
+    public class Keylocks
     {
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
-        [DllImport("user32.dll")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
         [DllImport("user32.dll")]
         static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc callback, IntPtr hInstance, uint threadId);
         [DllImport("user32.dll")]
@@ -18,7 +14,6 @@ namespace KeyboardLock
         static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, IntPtr lParam);
         [DllImport("kernel32.dll")]
         static extern IntPtr LoadLibrary(string lpFileName);
-
 
         const int WH_KEYBOARD_LL = 13;
         const int WM_HOTKEY = 0x312;
@@ -44,21 +39,15 @@ namespace KeyboardLock
         {
             if (code >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
-                int vkCode = Marshal.ReadInt32(lParam);
-                if (vkCode == 0xA2)
+                int vkcode = Marshal.ReadInt32(lParam);
+                if (vkcode == 0x08)
                 {
-                    MessageBox.Show("Control PresseD");
+                    MessageBox.Show("control pressed");
                 }
-                return (IntPtr)1;
-            }
-            if (code >= 0 && wParam == (IntPtr)WM_HOTKEY)
-            {
-                MessageBox.Show("Hotkey");
                 return (IntPtr)1;
             }
             else
                 return CallNextHookEx(hhook, code, wParam, lParam);
         }
-
     }
 }
