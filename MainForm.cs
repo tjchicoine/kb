@@ -4,7 +4,6 @@ using HotKeys;
 using Hooks;
 
 
-
 namespace KeyboardLock
 {
     public partial class MainForm : Form

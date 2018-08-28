@@ -5,12 +5,13 @@ using System.ServiceModel.Description;
 
 
 
+
 namespace KeyboardLock
 {
     public class Program
     {
         [STAThread]
-        public static void Main()
+        public static void Main(string[] args)
         {
             Uri baseAddress = new Uri("http://localhost:8080/hello");
 
@@ -32,9 +33,11 @@ namespace KeyboardLock
 
             Application.EnableVisualStyles();
             Application.Run(new MainForm());
+#if DEBUG
+            Console.WriteLine("Press <Enter> to continue . . .");
+            Console.ReadLine();
+#endif
         }
-
-
     }
     [ServiceContract]
     public interface IHelloWorldService
