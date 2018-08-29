@@ -5,3 +5,14 @@ C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\obj\Debug\Gett
 C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\obj\Debug\GettingStartedHost.pdb
 C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\obj\Debug\GettingStartedHost.csprojAssemblyReference.cache
 C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\bin\Debug\GettingStartedHost.exe.config
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\GettingStartedHost.exe.config
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\GettingStartedHost.exe
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\GettingStartedHost.pdb
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\GettingStartedHost.csprojAssemblyReference.cache
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\Interop.NATUPNPLib.dll
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\Interop.NETCONLib.dll
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\Interop.NetFwTypeLib.dll
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\GettingStartedHost.csproj.ResolveComReference.cache
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\GettingStartedHost.csproj.CoreCompileInputs.cache
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\GettingStartedHost.exe
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\GettingStartedHost.pdb
