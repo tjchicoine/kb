@@ -1,0 +1,7 @@
+C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\bin\Debug\GettingStartedHost.exe
+C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\bin\Debug\GettingStartedHost.pdb
+C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\obj\Debug\GettingStartedHost.csproj.CoreCompileInputs.cache
+C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\obj\Debug\GettingStartedHost.exe
+C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\obj\Debug\GettingStartedHost.pdb
+C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\obj\Debug\GettingStartedHost.csprojAssemblyReference.cache
+C:\Users\tyler\source\repos\GettingStartedHost\GettingStartedHost\bin\Debug\GettingStartedHost.exe.config
