@@ -2,6 +2,9 @@
 using System.Windows.Forms;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 using KeyboardLock.kb;
 
 namespace KeyboardLock
@@ -11,14 +14,22 @@ namespace KeyboardLock
         [STAThread]
         public static void Main(string[] args)
         {
-            KeyboardClient client = new KeyboardClient();
-            bool value1 = true;
-            client.IO(value1);
+            #region localip
+            string localIP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                localIP = endPoint.Address.ToString();
+            }
+            #endregion
 
             Console.WriteLine("Enter a message and press <enter>:");
-            string tosend = Console.ReadLine();
-            client.msg(tosend);
-                    
+            for (int i = 0; i < 10; i++)
+            {
+                string msg = Console.ReadLine();
+                Duplex(localIP, msg);
+            }    
 
             //Application.EnableVisualStyles();
             //Application.Run(new MainForm());
@@ -27,5 +38,16 @@ namespace KeyboardLock
             Console.ReadLine();
 #endif
             }
+
+        private async static void Duplex(string localIP, string npt)
+        {
+            var binding = new WSDualHttpBinding();
+            var address = new EndpointAddress(new Uri("http://"+localIP+":8080/E1"));
+            var clientCallback = new CallbackHandler();
+            var context = new InstanceContext(clientCallback);
+            var factory = new DuplexChannelFactory<nwKeyboardLock.IKeyboard>(clientCallback, binding, address);
+            nwKeyboardLock.IKeyboard keyboard = factory.CreateChannel();
+            await Task.Run(() => keyboard.IO(npt));
+        }
     }
 }

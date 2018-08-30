@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using NetFwTypeLib;
@@ -14,8 +12,11 @@ namespace nwKeyboardLock
 {
     class Program
     {
+        internal static ServiceHost host = null;
+
         static void Main(string[] args)
         {
+            #region portcheck_init
             string localIP;
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
@@ -27,48 +28,43 @@ namespace nwKeyboardLock
             int port = 8080;
             bool open = portcheck(port);
             Console.WriteLine("Port " + port + " is " + ((open) ? "open" : "closed"));
+
             //if (!open) { Fwr(); }
 
-            //RegistryKey uac = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\Currentversion\\Policies\\System", true);
-            //if(uac == null)
-            //{
-            //    uac = Registry.CurrentUser.CreateSubKey(("Software\\Microsoft\\Windows\\Currentversion\\Policies\\System"));
-            //}
-            //uac.SetValue("EnableLUA", 0);
-            //uac.Close();
+            #endregion
 
-            Uri baseAddress = new Uri("http://"+localIP+":8080/");
-            EndpointAddress myendpoint = new EndpointAddress(baseAddress + "/E1");
+            StartService(localIP);
 
-            // Create the ServiceHost.
-            using (ServiceHost host = new ServiceHost(typeof(KeyBoardService), baseAddress))
-            {
-                host.Description.Behaviors.Remove<ServiceDebugBehavior>();
-                // Enable metadata publishing.
-                ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                smb.HttpGetEnabled = true;
-                smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                host.Description.Behaviors.Add(smb);
+            Console.WriteLine("Press <Enter> to stop the service.");
+            Console.ReadLine();
 
-
-                // Open the ServiceHost to start listening for messages. Since
-                // no endpoints are explicitly configured, the runtime will create
-                // one endpoint per base address for each service contract implemented
-                // by the service.
-                host.Open();
-
-                ChannelFactory<IKeyboard> cf = new ChannelFactory<IKeyboard>("c1",myendpoint);
-                IKeyboard proxy = cf.CreateChannel();
-
-
-                Console.WriteLine("The service is ready at {0}", baseAddress);
-                Console.WriteLine("Press <Enter> to stop the service.");
-                Console.ReadLine();
-
-                // Close the ServiceHost.
-                host.Close();
-            }
+            StopService();
         }
+
+        private static void StartService(string localIP)
+        {
+            Uri baseAddress = new Uri("http://" + localIP + ":8080");
+
+            WSDualHttpBinding binding1 = new WSDualHttpBinding();
+
+            host = new ServiceHost(typeof(KeyboardService),baseAddress);
+
+            //ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+            //smb.HttpGetEnabled = true;
+            //smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+            //host.Description.Behaviors.Add(smb);
+
+            host.Description.Behaviors.Remove<ServiceDebugBehavior>();
+
+            host.Open();
+            Console.WriteLine("The service is ready at {0}", baseAddress);
+        }
+
+         private static void StopService()
+        {
+            host.Close();
+        }
+        #region portcheck
         static bool portcheck(int port)
         {
             bool exists = false;
@@ -102,5 +98,6 @@ namespace nwKeyboardLock
             INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
             firewallPolicy.Rules.Add(firewallrule);
         }
+        #endregion
     }
 }

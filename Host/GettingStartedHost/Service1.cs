@@ -1,104 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
+using System.ServiceModel.Web;
 using System.ServiceModel.Channels;
 using System.Xml;
+using HtmlAgilityPack;
 
 namespace nwKeyboardLock
 {
-    [ServiceBehavior(ConfigurationName = "foo")]
-    public class KeyBoardService : IKeyboard , IMyHelpPageContract
+    [ServiceBehavior(ConfigurationName ="foo",AddressFilterMode =AddressFilterMode.Any)]
+    public class KeyboardService : IKeyboard , IMyHelpPageContract
     {
-        public bool IO(bool command)
+        public void IO(string mes)
         {
-            if (command == true)
-            {
-                Console.WriteLine("Received Command");
-                return true;
-            }
-            else return false;
+            Console.WriteLine(mes);
+            Callback.ret(mes);
         }
-        public string msg(string msg)
+
+        IKeyboardCallback Callback
         {
-            Console.WriteLine(msg);
-            return msg;
+            get
+            {
+                return OperationContext.Current.GetCallbackChannel<IKeyboardCallback>();
+            }
         }
         public Message Help()
         {
-            return new MyHelpPageMessage();
+            var context = WebOperationContext.Current;
+            context.OutgoingResponse.ContentType = "text/html";
+            return new LandingPageMessage();
         }
     }
-
-
-    abstract class ContentOnlyMessage : Message
+    #region LandingPage
+    public class LandingPageMessage : Message
     {
-        MessageHeaders headers;
-        MessageProperties properties;
+        private readonly MessageHeaders _headers;
+        private readonly MessageProperties _properties;
 
-        protected ContentOnlyMessage()
+        public LandingPageMessage()
         {
-            this.headers = new MessageHeaders(MessageVersion.None);
+            this._headers = new MessageHeaders(MessageVersion.None);
+            this._properties = new MessageProperties();
         }
 
         public override MessageHeaders Headers
         {
-            get
-            {
-                if (IsDisposed)
-                {
-                    throw new ObjectDisposedException("blah");
-                }
-                return this.headers;
-            }
+            get { return this._headers; }
         }
-
         public override MessageProperties Properties
         {
-            get
-            {
-                if (IsDisposed)
-                {
-                    throw new ObjectDisposedException("blah");
-                }
-                if (this.properties == null)
-                {
-                    this.properties = new MessageProperties();
-
-                }
-                return this.properties;
-            }
+            get { return this._properties; }
         }
-
         public override MessageVersion Version
         {
-            get
-            {
-                return headers.MessageVersion;
-            }
+            get { return this._headers.MessageVersion; }
         }
-
-        protected override void OnBodyToString(XmlDictionaryWriter writer)
-        {
-            OnWriteBodyContents(writer);
-        }
-
-    }
-    class MyHelpPageMessage : ContentOnlyMessage
-    {
-        public MyHelpPageMessage() : base() { }
-
         protected override void OnWriteBodyContents(XmlDictionaryWriter writer)
         {
+            var document = new HtmlDocument();
+            document.Load("webpage.htm");
+            var bodyNode = document.DocumentNode.SelectSingleNode("//html");
             writer.WriteStartElement("HTML");
-            writer.WriteStartElement("HEAD");
-            writer.WriteRaw("");
-            writer.WriteEndElement();
-            writer.WriteRaw(@"future information implementiation");
+            writer.WriteRaw(bodyNode.InnerHtml);
             writer.WriteEndElement();
         }
     }
+    #endregion
 
 }
