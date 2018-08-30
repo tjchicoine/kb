@@ -4,6 +4,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Xml;
+using System.ServiceModel.Channels;
+
 
 namespace nwKeyboardLock
 {
@@ -15,5 +18,12 @@ namespace nwKeyboardLock
         bool IO(bool command);
         [OperationContract]
         string msg(string mesg);
+    }
+
+    [ServiceContract]
+    public interface IMyHelpPageContract
+    {
+        [OperationContract(Action = "*", ReplyAction = "*")]
+        Message Help();
     }
 }

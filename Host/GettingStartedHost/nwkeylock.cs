@@ -5,7 +5,8 @@ using System.Text;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using NetFwTypeLib;
-
+using System.Net;
+using System.Net.Sockets;
 
 
 
@@ -15,27 +16,50 @@ namespace nwKeyboardLock
     {
         static void Main(string[] args)
         {
+            string localIP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                localIP = endPoint.Address.ToString();
+            }
+            Console.WriteLine(localIP);
             int port = 8080;
             bool open = portcheck(port);
-            Console.WriteLine("Port " + port + " is " + ((open)? "open" : "closed"));
-            if (!open) { Fwr(); }
+            Console.WriteLine("Port " + port + " is " + ((open) ? "open" : "closed"));
+            //if (!open) { Fwr(); }
 
-            Uri baseAddress = new Uri("http://192.168.100.139:8080/");
+            //RegistryKey uac = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\Currentversion\\Policies\\System", true);
+            //if(uac == null)
+            //{
+            //    uac = Registry.CurrentUser.CreateSubKey(("Software\\Microsoft\\Windows\\Currentversion\\Policies\\System"));
+            //}
+            //uac.SetValue("EnableLUA", 0);
+            //uac.Close();
+
+            Uri baseAddress = new Uri("http://"+localIP+":8080/");
+            EndpointAddress myendpoint = new EndpointAddress(baseAddress + "/E1");
 
             // Create the ServiceHost.
             using (ServiceHost host = new ServiceHost(typeof(KeyBoardService), baseAddress))
             {
+                host.Description.Behaviors.Remove<ServiceDebugBehavior>();
                 // Enable metadata publishing.
                 ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
                 smb.HttpGetEnabled = true;
                 smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
                 host.Description.Behaviors.Add(smb);
 
+
                 // Open the ServiceHost to start listening for messages. Since
                 // no endpoints are explicitly configured, the runtime will create
                 // one endpoint per base address for each service contract implemented
                 // by the service.
                 host.Open();
+
+                ChannelFactory<IKeyboard> cf = new ChannelFactory<IKeyboard>("c1",myendpoint);
+                IKeyboard proxy = cf.CreateChannel();
+
 
                 Console.WriteLine("The service is ready at {0}", baseAddress);
                 Console.WriteLine("Press <Enter> to stop the service.");

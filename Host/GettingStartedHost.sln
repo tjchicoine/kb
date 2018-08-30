@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GettingStartedHost", "GettingStartedHost\GettingStartedHost.csproj", "{A9F20EDB-DAC0-4E8B-BE14-C9C34AD782AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardLock", "..\KeyboardLock.csproj", "{DAF19D50-88C1-4B34-9402-AF978B5396FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A9F20EDB-DAC0-4E8B-BE14-C9C34AD782AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9F20EDB-DAC0-4E8B-BE14-C9C34AD782AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9F20EDB-DAC0-4E8B-BE14-C9C34AD782AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF19D50-88C1-4B34-9402-AF978B5396FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF19D50-88C1-4B34-9402-AF978B5396FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF19D50-88C1-4B34-9402-AF978B5396FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF19D50-88C1-4B34-9402-AF978B5396FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
