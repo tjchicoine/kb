@@ -52,12 +52,12 @@ namespace KeyboardLockHost
 
             //host.AddServiceEndpoint(typeof(IKeyboard), new WSDualHttpBinding(), "E1");
 
-            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-            smb.HttpGetEnabled = true;
-            smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-            host.Description.Behaviors.Add(smb);
+            //ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+            //smb.HttpGetEnabled = true;
+            //smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+            //host.Description.Behaviors.Add(smb);
 
-            //host.Description.Behaviors.Remove<ServiceDebugBehavior>();
+            host.Description.Behaviors.Remove<ServiceDebugBehavior>();
 
             host.Open();
             Console.WriteLine("The service is ready at {0}", baseAddress);

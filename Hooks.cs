@@ -38,14 +38,16 @@ namespace Hooks
         public List<Keys> HookedKeys = new List<Keys>();
         
         
-        private event EventHandler<KeyPressedEventArgs> KeyPressed;
+
 
         public Keylocks()
         {
             this.SetHook();
             this.HookedKeys.Add(Keys.A);
-            this.HookedKeys.Add(Keys.Control);
-            this.HookedKeys.Add(Keys.ControlKey);
+            this.HookedKeys.Add(Keys.Shift);
+            this.HookedKeys.Add(Keys.ShiftKey);
+            this.HookedKeys.Add(Keys.LShiftKey);
+            this.HookedKeys.Add(Keys.RShiftKey);
         }
 
         ~Keylocks()
@@ -64,34 +66,64 @@ namespace Hooks
             UnhookWindowsHookEx(this._hhook);
         }
 
-        private int HookProc(int code, int wParam, ref KeyboardHookStruct lParam)
+        public int HookProc(int code, int wParam, ref KeyboardHookStruct lParam)
         {
             if (code >= 0)
             {
                 var key = (Keys)lParam.vkCode;
-
                 if (this.HookedKeys.Contains(key))
                 {
-                    var handler = this.KeyPressed;
-                    
-                    if (((wParam == WM_KEYDOWN) || wParam == WM_SYSKEYDOWN)  && (handler != null))
+                    ModifierKeys mods = 0;
+                    KeyPressedEventArgs kp = new KeyPressedEventArgs(mods, key);
+
+                    if (((wParam == WM_KEYDOWN) || wParam == WM_SYSKEYDOWN))
                     {
-                        ModifierKeys mods = 0;
-                        if (Keyboard.IsKeyDown(Keys.Control) || Keyboard.IsKeyDown(Keys.ControlKey) || Keyboard.IsKeyDown(Keys.LControlKey) || Keyboard.IsKeyDown(Keys.RControlKey))
+                        if (Keyboard.IsKeyDown(Keys.Control) || Keyboard.IsKeyDown(Keys.ControlKey) ||
+                            Keyboard.IsKeyDown(Keys.LControlKey) || Keyboard.IsKeyDown(Keys.RControlKey))
                         {
                             mods |= ModifierKeys.Control;
-                            Console.WriteLine("Probably Unhook Now");
                         }
 
-                        handler(this, new KeyPressedEventArgs(mods, key));
+                        if (Keyboard.IsKeyDown(Keys.Shift) || Keyboard.IsKeyDown(Keys.ShiftKey) ||
+                            Keyboard.IsKeyDown(Keys.LShiftKey) || Keyboard.IsKeyDown(Keys.RShiftKey))
+                        {
+                            mods |= ModifierKeys.Shift;
+                        }
+                        if (Keyboard.IsKeyDown(Keys.LWin) || Keyboard.IsKeyDown(Keys.RWin))
+                        {
+                            mods |= ModifierKeys.Win;
+                        }
+
+                        if (Keyboard.IsKeyDown(Keys.Alt))
+                        {
+                            mods |= ModifierKeys.Alt;
+                        }
+                        kp.Modifier = mods;
                     }
+
+                    Console.WriteLine(kp.Key);
+                    Console.WriteLine(kp.Modifier);
                 }
                 return 1;
             }
-            else 
+            else
                 return CallNextHookEx(this._hhook, code, wParam, ref lParam);
         }
+
+        protected virtual void OnKeyPress(KeyPressedEventArgs e)
+        {
+            EventHandler<KeyPressedEventArgs> handler = KeyPressed;
+            if(handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+
+        public event EventHandler<KeyPressedEventArgs> KeyPressed;
     }
+
+
 
     static class Keyboard
     {
@@ -132,20 +164,21 @@ namespace Hooks
         }
 
     }
-    class KeyPressedEventArgs : EventArgs
+
+    public class KeyPressedEventArgs : EventArgs
     {
         internal KeyPressedEventArgs(ModifierKeys modifier, Keys key)
         {
             this.Modifier = modifier;
-            this.Key = Key;
+            this.Key = key;
             this.Ctrl = (modifier & ModifierKeys.Control) != 0;
             this.Shift = (modifier & ModifierKeys.Shift) != 0;
             this.Win = (modifier & ModifierKeys.Win) != 0;
             this.Alt = (modifier & ModifierKeys.Alt) != 0;
         }
 
-        public ModifierKeys Modifier { get; private set; }
-        public Keys Key { get; private set; }
+        public ModifierKeys Modifier { get; set; }
+        public Keys Key { get; set; }
         public readonly bool Ctrl;
         public readonly bool Shift;
         public readonly bool Win;
