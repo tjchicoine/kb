@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GettingStartedHost", "GettingStartedHost\GettingStartedHost.csproj", "{A9F20EDB-DAC0-4E8B-BE14-C9C34AD782AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardLockHost", "GettingStartedHost\KeyboardLockHost.csproj", "{A9F20EDB-DAC0-4E8B-BE14-C9C34AD782AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardLock", "..\KeyboardLock.csproj", "{DAF19D50-88C1-4B34-9402-AF978B5396FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardLockClient", "..\KeyboardLockClient.csproj", "{DAF19D50-88C1-4B34-9402-AF978B5396FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

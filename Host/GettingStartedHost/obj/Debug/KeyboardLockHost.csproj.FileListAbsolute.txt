@@ -1,0 +1,16 @@
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\webpage.htm
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\GettingStartedHost.exe.config
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\GettingStartedHost.exe
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\GettingStartedHost.pdb
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\HtmlAgilityPack.dll
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\bin\Debug\HtmlAgilityPack.xml
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\KeyboardLockHost.csprojAssemblyReference.cache
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\Interop.NATUPNPLib.dll
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\Interop.NETCONLib.dll
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\Interop.NetFwTypeLib.dll
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\KeyboardLockHost.csproj.ResolveComReference.cache
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\KeyboardLockHost.csproj.CoreCompileInputs.cache
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\KeyboardLockHost.csproj.CopyComplete
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\GettingStartedHost.exe
+C:\Users\tyler\Desktop\Scripts\SimpleKeyboard\Host\GettingStartedHost\obj\Debug\GettingStartedHost.pdb

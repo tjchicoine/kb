@@ -8,7 +8,7 @@ using System.Net.Sockets;
 
 
 
-namespace nwKeyboardLock
+namespace KeyboardLockHost
 {
     class Program
     {
@@ -33,6 +33,7 @@ namespace nwKeyboardLock
 
             #endregion
 
+
             StartService(localIP);
 
             Console.WriteLine("Press <Enter> to stop the service.");
@@ -49,12 +50,14 @@ namespace nwKeyboardLock
 
             host = new ServiceHost(typeof(KeyboardService),baseAddress);
 
-            //ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-            //smb.HttpGetEnabled = true;
-            //smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-            //host.Description.Behaviors.Add(smb);
+            //host.AddServiceEndpoint(typeof(IKeyboard), new WSDualHttpBinding(), "E1");
 
-            host.Description.Behaviors.Remove<ServiceDebugBehavior>();
+            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+            smb.HttpGetEnabled = true;
+            smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+            host.Description.Behaviors.Add(smb);
+
+            //host.Description.Behaviors.Remove<ServiceDebugBehavior>();
 
             host.Open();
             Console.WriteLine("The service is ready at {0}", baseAddress);

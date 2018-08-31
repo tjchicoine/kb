@@ -8,18 +8,24 @@ using System.Xml;
 using System.ServiceModel.Channels;
 
 
-namespace nwKeyboardLock
+namespace KeyboardLockHost
 {
     [ServiceContract(SessionMode=SessionMode.Required,CallbackContract =typeof(IKeyboardCallback))]
     public interface IKeyboard
     {
         [OperationContract(IsOneWay = true)]
-        void IO(string command);
+        void Connect();
+
+        [OperationContract(IsOneWay = true)]
+        void AddItem(string item);
+
+        [OperationContract(IsOneWay = true)]
+        void Disconnect();
     }
     public interface IKeyboardCallback
     {
-        [OperationContract(IsOneWay =true)]
-        void ret(string answer);
+        [OperationContract(IsOneWay = true)]
+        void SendUpdatedList(List<string> items);
     }
 
     [ServiceContract]

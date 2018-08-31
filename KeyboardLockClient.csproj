@@ -66,14 +66,16 @@
   </Target>
   -->
   <ItemGroup>
-    <Compile Include="CallbackHandle.cs" />
+    <Compile Include="KeyboardCallback.cs" />
+    <Compile Include="KeyboardDuplexServiceClient.cs" />
+    <Compile Include="UpdatedListEventArgs.cs" />
     <Compile Include="Connected Services\kb\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="HotKeys.cs" />
-    <Compile Include="Keylocks.cs" />
+    <Compile Include="Hooks.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,15 +112,18 @@
     <None Include="Connected Services\kb\item1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\kb\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\kb\KeyboardService1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Host\GettingStartedHost\GettingStartedHost.csproj">
+    <ProjectReference Include="Host\GettingStartedHost\KeyboardLockHost.csproj">
       <Project>{a9f20edb-dac0-4e8b-be14-c9c34ad782ab}</Project>
-      <Name>GettingStartedHost</Name>
+      <Name>KeyboardLockHost</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
